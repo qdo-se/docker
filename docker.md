@@ -1,0 +1,131 @@
+### Run docker containers
+
+- `--detach`: run in background mode
+
+- `--publish [host]:[container]`: map host port to container poirt
+
+- `docker container run -p 80:80 -d --name webhost nginx`: create and run a container in background/detach mode
+
+- `docker container run -p 8080:80 -d --name httpd httpd`
+
+- `docker container run -p 3306:3306 -d --name mysql -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql`
+
+- `docker container run -p 80:3000 --rm [image]`: removes docker image after exits
+
+### Stop and remove
+
+- Stop all containers
+
+  - `docker container stop $(docker container ls -aq)`
+
+- Start container
+
+  - `docker container start [container]`
+
+- Remove all docker containers
+
+  - `docker container rm -f $(docker container ls -aq)`
+
+- Remove all images
+
+  - `docker rmi $(docker image ls -aq)`
+
+### Inspect and monitoir
+
+- `docker container top` - what processes are running in container
+
+- `docker container inspect` - details of one container config
+
+  - Get IP address: `docker container inspect --format '{{ .NetworkSettings.IPAddress }}' webhost`
+
+- `docker container stats` - performance stats for all containers
+
+- `docker container logs -f [container]` - follow logs
+
+### Getting a Shell inside containers
+
+- `docker container run -it [image]` - start new container interactively as foreground process, without detach
+
+- `docker container run -it alpine sh`: alpine does not have **bash** by default
+
+- `docker container exec [image]` - run additional command in EXISTING container
+
+### Network
+
+- `docker network ls`
+
+- `docker network inspect [network]`
+
+- `docker network create [network]`
+
+- `docker network connect [network] [container]`
+
+- Use `run --network-alias` to assign the same DNS address for multiple containers
+  
+  - `docker container run -d --network-alias search --network my_app_net elasticsearch:2`
+
+- Use `run --rm` to remove container immediately after it exits
+
+  - `docker container run --rm --network my_app_net centos curl -s search:9200`
+
+- `--net` and `--network` both work
+
+- `--net-alias` and `--network-alias` both work
+
+### Port
+
+- `docker container port [container]`: display port of a container
+
+### Inspect
+
+- `docker image inspect [image]`: read image metadata
+
+- `docker image history [image]`: read layers of an image
+
+### Image
+
+- `docker pull [image]`: download an image from docker registry
+
+- `[user]/[repo]:[tag]`: how to identify an image
+
+- `docker image tag [source_image][:tag] [target_image][:tag]`
+
+- `docker image build -t [tag] .`: builds using host's current directory
+
+### Manage memory
+
+- `docker system df`: see memory use
+
+- `docker image prune`: remove all images
+
+- `docker system prune`: clean up everything
+
+- `docker volume prune`: remove all volumes
+
+### Volume management
+
+- `docker volume ls`:
+
+- `docker volumne create [volumne_name]`:
+
+- `docker volume inspect [volumne_name]`:
+
+- `docker container run -p 3306:3306 -d --name mysql -e MYSQL_RANDOM_ROOT_PASSWORD=yes -v mysql-db:/var/lib/mysql mysql`: create a volumne name `mysql-db` points to `var/lib/mysql` in the container
+
+### Bind mount
+
+- `docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html nginx`: bind mount current directory to `/usr/share/nginx/html`
+
+### Compose
+
+- `docker-compose up`:
+
+- `docker-compose up -d`: start docker container services without attach to terminal or as a background processs
+
+- `docker-compose down`:
+
+- `docker-compose ps`: display running containers
+
+- `docker-compose top`: display the current processes in each container
+
+- `docker-compose up --build`:  Rebuild the images before starting the container
