@@ -28,7 +28,7 @@
 
 - Remove all images
 
-  - `docker rmi $(docker image ls -aq)`
+  - `docker image rm -f $(docker image ls -aq)`
 
 ### Inspect and monitoir
 
@@ -61,7 +61,7 @@
 - `docker network connect [network] [container]`
 
 - Use `run --network-alias` to assign the same DNS address for multiple containers
-  
+
   - `docker container run -d --network-alias search --network my_app_net elasticsearch:2`
 
 - Use `run --rm` to remove container immediately after it exits
@@ -88,6 +88,8 @@
 
 - `[user]/[repo]:[tag]`: how to identify an image
 
+- `docker image ls`: list all images
+                 
 - `docker image tag [source_image][:tag] [target_image][:tag]`
 
 - `docker image build -t [tag] .`: builds using host's current directory
@@ -129,3 +131,10 @@
 - `docker-compose top`: display the current processes in each container
 
 - `docker-compose up --build`:  Rebuild the images before starting the container
+
+- `docker-compose stop`: stop the current application's service containers
+
+- `docker-compose rm -f`: remove the current application's service containers
+
+- `docker-compose rm -v [container]`: remove the volumes that are attached to the container
+
