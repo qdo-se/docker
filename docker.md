@@ -120,21 +120,24 @@
 
 ### Compose
 
-- `docker-compose up`:
+- `docker-compose up -d`: start docker container services 
 
-- `docker-compose up -d`: start docker container services without attach to terminal or as a background processs
-
-- `docker-compose down`:
+  - `--build`:  Rebuild the images before starting the container
+  
+  - `-d`: without attach to terminal or as a background processs
 
 - `docker-compose ps`: display running containers
 
 - `docker-compose top`: display the current processes in each container
 
-- `docker-compose up --build`:  Rebuild the images before starting the container
-
 - `docker-compose stop`: stop the current application's service containers
 
-- `docker-compose rm -f`: remove the current application's service containers
+- `docker-compose rm`: remove the current application's service containers
 
-- `docker-compose rm -v [container]`: remove the volumes that are attached to the container
+  - `-f`: force
 
+  - `-v`: remove the volumes that are attached to the container
+
+- `docker-compose down`: stop and remove current application's service containers
+
+  - `-v`:  remove data volumes
