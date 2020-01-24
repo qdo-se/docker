@@ -60,8 +60,10 @@
 
 - `docker network connect [network] [container]`
 
-- Use `run --network-alias` to assign the same DNS address for multiple containers
+- Use `run --network-alias` to assign the same DNS address for multiple containers. Below example create 2 containers `elasticsearch:2`and assign the same DNS name `search`. They are both in the same network `my_app_net`. This is similar to a load-balancer scenario.
 
+  - `docker network create my_app_net`
+  - `docker container run -d --network-alias search --network my_app_net elasticsearch:2`
   - `docker container run -d --network-alias search --network my_app_net elasticsearch:2`
 
 - Use `run --rm` to remove container immediately after it exits
@@ -100,7 +102,7 @@
 
 - `docker image prune`: remove all images
 
-- `docker system prune`: clean up everything
+- `docker system prune -a`: clean up everything
 
 - `docker volume prune`: remove all volumes
 
@@ -141,3 +143,14 @@
 - `docker-compose down`: stop and remove current application's service containers
 
   - `-v`:  remove data volumes
+
+- `docker-compose build --no-cache`: build application without cache
+
+
+
+
+
+
+
+- `docker image build --rm  -f ./c7-systemd.yml -t local/c7-systemd .`: 
+- `docker image build --rm  -f ./c7-systemd-httpd.yml -t local/c7-systemd-httpd.yml .`:
