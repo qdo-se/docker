@@ -4,6 +4,24 @@
 
 - `--publish [host]:[container]`: map host port to container poirt
 
+- `docker container run [image]`
+
+  - `-p [host_port]:[container_port]`: map host with container port
+
+  - `--rm`: remove container after finished
+
+  - `-d`: run in detached mode
+
+  - `-it`: interactively as foreground process, attach host terminal to container's process
+
+  - `-v [host_dir]:[container_dir]`: bind mountain host directory to countainer directory
+
+  - `-w [container_dir]`: set working directory in container
+
+  - `--name`:
+
+  - `network`:
+
 - `docker container run -p 80:80 -d --name webhost nginx`: create and run a container in background/detach mode
 
 - `docker container run -p 8080:80 -d --name httpd httpd`
