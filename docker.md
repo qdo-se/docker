@@ -146,6 +146,10 @@
 
 - `docker-compose build --no-cache`: build application without cache
 
+- `docker-compose top [service...]`: display all processes in the services
+
+- `docker-compose ps -q [service...]`: display container id of services
+
 
 
 
