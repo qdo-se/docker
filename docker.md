@@ -149,12 +149,3 @@
 - `docker-compose top [service...]`: display all processes in the services
 
 - `docker-compose ps -q [service...]`: display container id of services
-
-
-
-
-
-
-
-- `docker image build --rm  -f ./c7-systemd.yml -t local/c7-systemd .`: 
-- `docker image build --rm  -f ./c7-systemd-httpd.yml -t local/c7-systemd-httpd.yml .`:
