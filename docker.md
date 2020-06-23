@@ -54,7 +54,7 @@
 
 - `docker container inspect` - details of one container config
 
-  - Get IP address: `docker container inspect --format '{{ .NetworkSettings.IPAddress }}' webhost`
+  - Get IP address: `docker container inspect --format '{{ .NetworkSettings.IPAddress }}' [container]`
 
 - `docker container stats` - performance stats for all containers
 
