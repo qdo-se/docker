@@ -48,7 +48,9 @@
 
   - `docker image rm -f $(docker image ls -aq)`
 
-### Inspect and monitoir
+### Inspect and monitor
+
+- `docker ps` - quick way to see what is running
 
 - `docker container top` - what processes are running in container
 
@@ -147,6 +149,8 @@
   - `-d`: without attach to terminal or as a background processs
 
 - `docker-compose ps`: display running containers
+  - `-q`: display container id of services
+  - `--services`: display service name
 
 - `docker-compose top`: display the current processes in each container
 
@@ -166,4 +170,4 @@
 
 - `docker-compose top [service...]`: display all processes in the services
 
-- `docker-compose ps -q [service...]`: display container id of services
+- `docker-compose logs`: logs

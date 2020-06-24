@@ -1,5 +1,7 @@
 # RUN for build-time
 
+@TODO research
+# At build-time, mount bind may not happen yet
 
 # ENTRYPOINT for run-time, not overridden, 1 per Dockerfile
 
