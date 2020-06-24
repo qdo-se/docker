@@ -104,6 +104,7 @@
 
 - `docker image history [image]`: read layers of an image
 
+- `docker container inspect --format='{{.Mounts}}' [container]`: get mount info
 ### Image
 
 - `docker pull [image]`: download an image from docker registry
@@ -151,6 +152,8 @@
 - `docker-compose ps`: display running containers
   - `-q`: display container id of services
   - `--services`: display service name
+
+- `docker-compose ps -q [service]`: get id of a specific service
 
 - `docker-compose top`: display the current processes in each container
 
