@@ -68,7 +68,9 @@
 
 - `docker container run -it alpine sh`: alpine does not have **bash** by default
 
-- `docker container exec [image]` - run additional command in EXISTING container
+- `docker container exec [image] [command]` - run additional command in EXISTING container
+
+- `docker container exec -it [image] [command]` - run additional command in EXISTING container with terminal attached
 
 ### Network
 
@@ -174,3 +176,5 @@
 - `docker-compose top [service...]`: display all processes in the services
 
 - `docker-compose logs`: logs
+
+- `docker-compose ps -q [service...]`: display container id of services
