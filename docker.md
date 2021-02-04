@@ -64,7 +64,7 @@
 
 ### Getting a Shell inside containers
 
-- `docker container run -it [image]` - start new container interactively as foreground process, without detach
+- `docker container run -it [image] [command]` - start new container interactively as foreground process, without detach
 
 - `docker container run -it alpine sh`: alpine does not have **bash** by default
 
