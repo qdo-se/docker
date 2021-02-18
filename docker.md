@@ -87,14 +87,13 @@
   - `docker network create my_app_net`
   - `docker container run -d --network-alias search --network my_app_net elasticsearch:2`
   - `docker container run -d --network-alias search --network my_app_net elasticsearch:2`
-
-- Use `run --rm` to remove container immediately after it exits
-
-  - `docker container run --rm --network my_app_net centos curl -s search:9200`
+  - `docker container run --rm --network my_app_net centos curl -s search:9200`: note same network, call to DNS name
 
 - `--net` and `--network` both work
 
 - `--net-alias` and `--network-alias` both work
+
+- `--hostname`: change hostname inside container. It does not change DNS outside of docker, nor does it change the networking isolation, so it will not allow others to connect to the container with that name.
 
 ### Port
 
