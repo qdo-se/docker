@@ -1,0 +1,56 @@
+* 2021 Feb 19
+  - Copy-on-Write
+  - Using VPN: change "default-address-pool" in /etc/docker/daemon.json or ~/.docker/daemon.json
+
+* 2021 Feb 26
+  - Should run Docker as a unprivileged user
+  - .dockerignore
+  - `docker build --no-cache`
+  - Alpine Linux and JVM
+  - Cloud registries, Internet latencies can have real impact on deployment
+    - good image design, thin layers can help
+  - Docker authentication can store login information locally
+  - command: less ~/.docker/config.json
+  - command: openssl req -x509 -nodes -sha256 -newkey rsa:4096 -keyout registry.key -out registry.crt -days 14 -subj '{/CN=127.0.0.1}'
+    - openssl req -x509 -nodes -sha256 -newkey rsa:4096 -keyout registry.key -out registry.crt -days 14 -subj '/C=US'
+  - `docker run --entrypoint htpasswd spkane/basic-registry:latest -Bbn guest guest > htpasswd`
+
+** Build local basic registry
+   #+BEGIN_SRC sh
+     git clone https://github.com/spkane/basic-registry --config core.autocrlf=input
+
+     cd ./basic-registry
+
+     cp config.yml.sample config.yml
+
+     # Create certs
+     openssl req -x509 -nodes -sha256 -newkey rsa:4096 -keyout registry.key -out registry.crt -days 14 -subj '/C=US'
+
+     # Call `htpasswd` command to encrypt password
+     docker run --entrypoint htpasswd spkane/basic-registry:latest -Bbn my-user my-password > htpasswd
+
+     # Build registry
+     docker build -t my-registry .
+
+     # Run registry
+     docker run -d -p 5000:5000 --name registry my-registry
+
+     # Check logs
+     docker logs registry
+   #+END_SRC
+
+** Test local registry
+
+   #+BEGIN_SRC sh
+     docker login --username my-user --password my-password 127.0.0.1:5000
+
+     docker tag my-registry 127.0.0.1:5000/my-registry
+
+     docker push 127.0.0.1:5000/my-registry
+
+     docker pull 127.0.0.1:5000/my-registry
+
+     docker stop registry
+
+     docker rm registry
+   #+END_SRC
