@@ -11,9 +11,6 @@
     - good image design, thin layers can help
   - Docker authentication can store login information locally
   - command: less ~/.docker/config.json
-  - command: openssl req -x509 -nodes -sha256 -newkey rsa:4096 -keyout registry.key -out registry.crt -days 14 -subj '{/CN=127.0.0.1}'
-    - openssl req -x509 -nodes -sha256 -newkey rsa:4096 -keyout registry.key -out registry.crt -days 14 -subj '/C=US'
-  - `docker run --entrypoint htpasswd spkane/basic-registry:latest -Bbn guest guest > htpasswd`
 
 ** Build local basic registry
    #+BEGIN_SRC sh
@@ -54,3 +51,9 @@
 
      docker rm registry
    #+END_SRC
+
+   - nsenter: enter name space or run program in different namespaces
+
+* 2021 March 5
+
+  - docker run -h CONTAINER -i -t debian /bin/bash
