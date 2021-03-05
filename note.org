@@ -33,7 +33,7 @@
      docker run -d -p 5000:5000 --name registry my-registry
 
      # Check logs
-     docker logs registry
+     docker container logs registry
    #+END_SRC
 
 ** Test local registry
@@ -56,4 +56,12 @@
 
 * 2021 March 5
 
-  - docker run -h CONTAINER -i -t debian /bin/bash
+  #+BEGIN_SRC sh
+    docker run -h CONTAINER -i -t debian /bin/bash
+
+    # Stop container that's running on port 8080
+    docker stop $(docker ps -qa -f publish=8080)
+
+    # Remove all stopped containers
+    docker rm -v $(docker ps -aq -f status=exited)
+  #+END_SRC
