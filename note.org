@@ -54,6 +54,18 @@
 
    - nsenter: enter name space or run program in different namespaces
 
+   - Using multistage builds and from scratch to create minimal image
+
+   #+BEGIN_SRC sh
+     FROM golang as compile
+     RUN CGO_ENABLED=0 go get -a -ldflags '-s' github.com/adriaandejonge/helloworld
+
+     FROM scratch
+     COPY --from=compile /go/bin/helloworld .
+     EXPOSE 8080
+     CMD ["./helloworld"]
+   #+END_SRC
+
 * 2021 March 5
 
   #+BEGIN_SRC sh
@@ -64,4 +76,9 @@
 
     # Remove all stopped containers
     docker rm -v $(docker ps -aq -f status=exited)
+  #+END_SRC
+
+  #+BEGIN_SRC sh
+    # Turn a container to an image
+    docker commmit <container-name> <image-name>
   #+END_SRC
