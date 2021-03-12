@@ -86,4 +86,48 @@
 * 2021 March 12
 
   - Run *docker info* to get info about file system
+
   - the AUFS filesystem has a hard limit of 127 layers
+
+  - *docker info* = *docker system info*
+
+** Link
+
+   - Using *--link* to link container (This is deprecated, use network and service instead)
+
+     - *--link <target-container-name>:<referred-host-name-for-target-container>*
+     - *--link* create an entry in /etc/hosts to easily access other container with hostname
+
+   #+BEGIN_SRC sh
+     ocker run --name myredis -d redis # first container
+
+     docker run --rm -it --link myredis:redis redis /bin/bash # second container
+
+     # Running inside the second container
+     redis-cli -h redis -p 6379
+
+     ping
+
+     set "persistence" "test"
+
+     save
+
+     exit
+
+     exit
+   #+END_SRC
+
+** Mount
+
+   - Note: It isn’t possible to specify a host directory inside a Dockerfile for reasons of portability and security(the file or directory may not exist in other systems, and containers shouldn’t beable to mount sensitive files like etc/passwd without explicit permission)
+     - Cannot bind mount in Dockerfile due to security and portability issues
+
+   - Use *volumes-from* to access data of another container with <container-name>
+     - Useful for backup data
+
+#+BEGIN_SRC sh
+  docker run -v /dbdata --name dbstore ubuntu /bin/bash
+
+  docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu \
+         tar cvf /backup/backup.tar /dbdata
+#+END_SRC
