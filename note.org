@@ -82,3 +82,8 @@
     # Turn a container to an image
     docker commmit <container-name> <image-name>
   #+END_SRC
+
+* 2021 March 12
+
+  - Run *docker info* to get info about file system
+  - the AUFS filesystem has a hard limit of 127 layers
