@@ -125,9 +125,37 @@
    - Use *volumes-from* to access data of another container with <container-name>
      - Useful for backup data
 
-#+BEGIN_SRC sh
+   #+BEGIN_SRC sh
   docker run -v /dbdata --name dbstore ubuntu /bin/bash
 
   docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu \
          tar cvf /backup/backup.tar /dbdata
-#+END_SRC
+   #+END_SRC
+
+* 2021 March 19
+
+** Inspect changes
+
+   - *docker diff [container]* : inspect changes that's been made inside this container
+
+** Saving as tar files
+
+   - *save* and *load* commands for images
+
+   #+BEGIN_SRC sh
+     docker save -o [tar-file] [image]
+
+     docker load < [tar-file]
+   #+END_SRC
+
+   - *import* and *export* commands for containers
+
+   #+BEGIN_SRC sh
+     docker export [container] > [tar-file]
+
+     docker import - [image] < [tar-file]
+   #+END_SRC
+
+   - *export* will squash history, *save* will keep history
+   - *docker history [image]* : will show the layers of all images
+
