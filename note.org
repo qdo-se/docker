@@ -164,3 +164,14 @@
   - CMD can be overwritten by an argument to *docker run*
   - ENTRYPOINT can only be overwritten with *--entrypoint* option of *docker run*
 
+** Best practives
+
+  - Run a single process per container
+  - Manage data and runtime configuration outside the containers and images
+  - Use .dockerignore file
+  - Use official images from Docker Hub
+  - Minimize the image
+
+** COPY vs ADD
+
+  - Using COPY if there is no need to handle tar or remote URL
