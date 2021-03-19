@@ -7,6 +7,8 @@
 - `docker container run [image]`
 
   - `-p [host_port]:[container_port]`: map host with container port
+  
+    - `-P`: let docker choose the mapping port on host
 
   - `--rm`: remove container after finished
 

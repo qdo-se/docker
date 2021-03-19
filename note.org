@@ -159,3 +159,8 @@
    - *export* will squash history, *save* will keep history
    - *docker history [image]* : will show the layers of all images
 
+** ENTRYPOINT vs CMD
+
+  - CMD can be overwritten by an argument to *docker run*
+  - ENTRYPOINT can only be overwritten with *--entrypoint* option of *docker run*
+
