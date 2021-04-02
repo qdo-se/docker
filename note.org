@@ -161,17 +161,76 @@
 
 ** ENTRYPOINT vs CMD
 
-  - CMD can be overwritten by an argument to *docker run*
-  - ENTRYPOINT can only be overwritten with *--entrypoint* option of *docker run*
+   - CMD can be overwritten by an argument to *docker run*
+   - ENTRYPOINT can only be overwritten with *--entrypoint* option of *docker run*
 
 ** Best practives
 
-  - Run a single process per container
-  - Manage data and runtime configuration outside the containers and images
-  - Use .dockerignore file
-  - Use official images from Docker Hub
-  - Minimize the image
+   - Run a single process per container
+   - Manage data and runtime configuration outside the containers and images
+   - Use .dockerignore file
+   - Use official images from Docker Hub
+   - Minimize the image
 
 ** COPY vs ADD
 
-  - Using COPY if there is no need to handle tar or remote URL
+   - Using COPY if there is no need to handle tar or remote URL
+
+** ONBUILD
+
+   - Parent image tells the child image what to do at build time
+
+   - The ONBUILD directives of the parent will be executed first
+
+   - This is useful when we want to delay build steps which we need access to the build context. For example, parent image does not have access to package.json at build time.
+
+   - Below example is in *./examples/onbuild*
+
+   - Create dockerfile Dockerfile.parent in parent directory
+
+   #+BEGIN_SRC dockerfile
+     FROM node
+
+     RUN mkdir -p /usr/src/app
+     WORKDIR /usr/src/app
+
+     ONBUILD COPY package.json /usr/src/app/
+     ONBUILD RUN npm install
+     ONBUILD COPY . /usr/src/app
+
+     CMD [ "npm", "run" ]
+   #+END_SRC
+
+   - Create dockerfile Dockerfile.child in child directory
+
+     #+BEGIN_SRC dockerfile
+       FROM node:parent-onbuild
+
+       RUN echo 'Child directive'
+
+       CMD [ "npm", "run" ]
+     #+END_SRC
+
+   - Run these
+
+   #+BEGIN_SRC sh
+     # Build node parent in parent context
+     docker image build --no-cache -t node:parent-onbuild parent/
+
+     # Build node child in child context
+     docker image build --no-cache -t node:child child/
+
+
+
+     # Test
+     docker container run -it node:child /bin/bash
+     ls -al
+     exit
+
+     docker container run -it node:parent-onbuild /bin/bash
+     ls -al
+     exit
+   #+END_SRC
+* 2021 April 2
+
+  - docker pause
