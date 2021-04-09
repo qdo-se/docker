@@ -1,6 +1,6 @@
 * 2021 Feb 19
   - Copy-on-Write
-  - Using VPN: change "default-address-pool" in /etc/docker/daemon.json or ~/.docker/daemon.json
+  - Using VPN: change "default-address-pool" in /etc/docker/daemon.json or ~//.docker/daemon.json
 
 * 2021 Feb 26
   - Should run Docker as a unprivileged user
@@ -10,7 +10,7 @@
   - Cloud registries, Internet latencies can have real impact on deployment
     - good image design, thin layers can help
   - Docker authentication can store login information locally
-  - command: less ~/.docker/config.json
+  - `less ~/.docker/config.json`
 
 ** Build local basic registry
    #+BEGIN_SRC sh
@@ -231,6 +231,12 @@
      ls -al
      exit
    #+END_SRC
+
 * 2021 April 2
 
   - docker pause
+
+* 2021 April 9
+
+  - Be careful with sending too much build context to Docker daemon.
+    - It can be slow
