@@ -119,7 +119,7 @@
 
 ** Mount
 
-   - Note: It isn’t possible to specify a host directory inside a Dockerfile for reasons of portability and security(the file or directory may not exist in other systems, and containers shouldn’t beable to mount sensitive files like etc/passwd without explicit permission)
+   - Note: It isn’t possible to specify a host directory inside a Dockerfile for reasons of portability and security (the file or directory may not exist in other systems, and containers shouldn’t beable to mount sensitive files like etc/passwd without explicit permission)
      - Cannot bind mount in Dockerfile due to security and portability issues
 
    - Use *volumes-from* to access data of another container with <container-name>
@@ -238,5 +238,48 @@
 
 * 2021 April 9
 
-  - Be careful with sending too much build context to Docker daemon.
-    - It can be slow
+** Build Context
+   - Be careful with sending too much build context to Docker daemon.
+     - It can be slow
+
+   - Git repo can be used a build context
+     - Recommend checking out the repo manually instead
+
+   - STDIN
+     - `docker build - < Dockerfile`
+     - `docker build - < context.tar.gz`
+
+** Cache
+   - Those RUN instruction that are not guaranteed the same result like `apt-get update` or clone source repository will be cached. We may need to invalidate cache in those cases
+
+** Phusion reaction
+
+** Rebuilding Images
+   - `docker build` is not enough to ensure image up-to-date due to cache
+   - Do a explicitly `docker pull` or delete caches to pull latest images
+
+** EXEC vs Shell form
+   - Recommend EXEC to avoid the shell munging strings or missing /bin/sh
+
+** Linking Containers
+   - Outdated: Use `publish services` rather than `linking` containers
+
+** Managing Data with Volumes and Data Containers
+   - There are 3 types of mount: `bind`, `mount`, and `tmpfs`
+     - `bind`: when a specific host directory is specified by `docker run` command
+       - No name. Don't show up in `docker volume ls`. Is a host directory path
+       - File will NOT be copied into volume so that host files aren’t accidentally overwritten
+     - `volume`: are completely managed by Docker and easier to back up or migrate than `bind` mounts
+       - `volume` can have a name
+       - Anonymous volume will be removed
+       - A named `volume` will not be removed when container is removed
+       - Data will be copied from image into container volume
+     - `tmpfs`: is temporary, and only persisted in the host memory. When the container stops, the tmpfs mount is removed, and files written there won’t be persisted
+   - Dockerfile `volume` cannot be a `bind mount` due to security and portability issues
+   - Dockerfile `volume` is managed by Docker. It is stored somewhere in Docker’s storage directory on the host machine
+     - To get the volume location: `docker inspect -f {{.Mounts}} [container]`
+     - `VOLUME /data/` is the same as `--mount type=volume,destination=/data` in `docker run`
+     - `source` in `volume` mount cannot be a host directory (no slash /)
+   - 
+
+
