@@ -280,6 +280,5 @@
      - To get the volume location: `docker inspect -f {{.Mounts}} [container]`
      - `VOLUME /data/` is the same as `--mount type=volume,destination=/data` in `docker run`
      - `source` in `volume` mount cannot be a host directory (no slash /)
-   - 
 
 
