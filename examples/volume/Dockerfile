@@ -6,4 +6,4 @@ RUN mkdir /data && touch /data/x
 
 RUN chown -R my-user:my-group /data
 
-VOLUME /data /my-volume
+# VOLUME /my-volume
