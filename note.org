@@ -236,7 +236,7 @@
 
   - docker pause
 
-* 2021 April 9
+* 2021 April 9 - Using Docker: Chapter 4. Docker Fundamentals
 
 ** Build Context
    - Be careful with sending too much build context to Docker daemon.
@@ -253,6 +253,11 @@
    - Those RUN instruction that are not guaranteed the same result like `apt-get update` or clone source repository will be cached. We may need to invalidate cache in those cases
 
 ** Phusion reaction
+   - The view of Docker is that each container should only run a single application and ideally a single process.
+   - Do we need
+     - an init service?
+     - cron daemon?
+     - ssh daemon?
 
 ** Rebuilding Images
    - `docker build` is not enough to ensure image up-to-date due to cache
@@ -281,4 +286,27 @@
      - `VOLUME /data/` is the same as `--mount type=volume,destination=/data` in `docker run`
      - `source` in `volume` mount cannot be a host directory (no slash /)
 
+* 2021 April 16 - https://codefresh.io/containers/docker-anti-patterns/
 
+** “How can I unlearn all my VM practices and processes and change my workflow to work with immutable, short-lived, stateless containers instead of mutable, long-running, stateful VMs?”
+
+** Building a Docker image should be an idempotent operation
+
+* 2021 April 23
+
+** ARG (Dockerfile instruction) allow specify arguments at build time with `docker build --build-arg`
+
+** Docker image digest
+   - https://cloud.google.com/architecture/using-container-images
+   - https://engineering.remind.com/docker-image-digests
+
+   - TLDR, tags are mutable references and can be exploited by hackers (e.g. in a supply chain attack). Specifying digest will help us avoid certain security attack vectors and increase the stability when using containers. Digest will always take precedent over a tag so it's okay to specify both for readability. For example:
+
+   #+BEGIN_SRC sh
+     docker container run -it alpine:whatever-tag-for-3.13.5@sha256:def822f9851ca422481ec6fee59a9966f12b351c62ccb9aca841526ffaa9f748 /bin/sh
+   #+END_SRC
+
+** Docker image trust
+
+   - Only pull signed docker image
+     - Turn on Docker content trust: export DOCKER_CONTENT_TRUST=1
