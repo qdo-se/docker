@@ -307,6 +307,10 @@
    #+END_SRC
 
 ** Docker image trust
-
+   - Check which images are signed: docker trust inspect --pretty <image:tag> | less
+     - Does not work very well
    - Only pull signed docker image
      - Turn on Docker content trust: export DOCKER_CONTENT_TRUST=1
+     - Does not work very well
+
+** Docker scan
