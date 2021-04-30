@@ -1,5 +1,5 @@
 # Build
-docker build -t q/alpine .
+docker build --no-cache -t q/alpine .
 
 # Run
 docker run -it -d --name alpine q/alpine

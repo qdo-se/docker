@@ -314,3 +314,9 @@
      - Does not work very well
 
 ** Docker scan
+
+* 2021 April 30
+
+** Docker ignore
+  - Work with docker build
+  - 
