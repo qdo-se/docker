@@ -1,11 +1,11 @@
 # RUN for build-time
 
+
 @TODO research
 # At build-time, mount bind may not happen yet
 
+
 # ENTRYPOINT for run-time, not overridden, 1 per Dockerfile
-
-
 # CMD for run-time default, can be overridden, 1 per Dockerfile
 
 
@@ -14,6 +14,8 @@
 
 # Note: 'environment' in docker-compose.yaml is for key-value only, no variable expansion. It's good for secret and host-specific values
 
+
 # Note: ARG in Dockerfile and 'args under build' in docker-compose.yaml can be only accessible during build-time. One use case is we can set 'args under build' value in docker-compose.yaml to pass those values to ARG in Dockerfile
 https://docs.docker.com/compose/compose-file/#args
+# Don't put credential in ARG. This can be lookuped using `docker history <image>`
 
