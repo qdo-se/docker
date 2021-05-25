@@ -318,5 +318,13 @@
 * 2021 April 30
 
 ** Docker ignore
-  - Work with docker build
-  - 
+   - Work with docker build
+   -
+
+* 2021 May 14
+
+  - SHELL form
+    - It can take a while to stop the process since process is not the PID 1
+    - There is a shell parent that bootstrap the process
+  - EXEC form
+    - The process is the root process
