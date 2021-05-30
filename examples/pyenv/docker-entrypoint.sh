@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-addgroup "${GROUP}"
+addgroup "${GROUP}" &>/dev/null
 
-useradd -g "${GROUP}" "${USER}"
+useradd -g "${GROUP}" "${USER}" &>/dev/null
 
 cp -r /root/.pyenv/* /data/
 
