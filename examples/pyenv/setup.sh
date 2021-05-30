@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# set -e
+set -e
 
-# rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
+rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
 
-# docker container run -e "GROUP=$(id -gn)" -e "USER=${USER}" -e "HOME=${HOME}" --mount type=bind,source="${HOME}/.pyenv",destination=/sync quangdo/pyenv:3.4.10 
+docker container run -e "GROUP=$(id -gn)" -e "USER=${USER}" -e "HOME=${HOME}" --mount type=bind,source="${HOME}/.pyenv",destination=/sync quangdo/pyenv:3.4.10
 
 if ! grep -q 'export PYENV_ROOT="${HOME}/.pyenv"' "${HOME}/.profile"; then
     echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> "${HOME}/.profile"
