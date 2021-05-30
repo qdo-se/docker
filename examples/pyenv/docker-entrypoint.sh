@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 
-addgroup "${GROUP}"
+addgroup "${GROUP}" &>/dev/null
 
-useradd -m -d "/home/${USER}" -g "${GROUP}" "${USER}"
+useradd -m -d "/home/${USER}" -g "${GROUP}" "${USER}" &>/dev/null
 
-curl https://pyenv.run | bash \
-    && echo 'export PYENV_ROOT="$HOME/.pyenv"' >> "$HOME/.bashrc" \
-    && echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> "$HOME/.bashrc" \
-    && echo 'eval "$(pyenv init --path)"' >> "$HOME/.bashrc"
+rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
 
-# Run like an interactive shell since .bashrc ignores non-interactive commands
-/bin/bash -ic "source $HOME/.bashrc && pyenv install 3.4.10 && pyenv global 3.4.10"
+cp -r /root/.pyenv/* "${HOME}/.pyenv"
 
-cp -r "$HOME"/.pyenv/* /data/
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
-chown -R "${USER}":"${GROUP}" /data
+pyenv install 3.4.10
+pyenv global 3.4.10
+
+cp -r "${HOME}/.pyenv"/* /sync
+
+chown -R "${USER}":"${GROUP}" /sync
 
 exec "$@"
