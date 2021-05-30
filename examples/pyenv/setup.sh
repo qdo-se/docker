@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 
-set -e
+# set -e
 
-rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
+# rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
 
-docker container run -e "GROUP=$(id -gn)" -e "USER=${USER}" -e "HOME=${HOME}" --mount type=bind,source="${HOME}/.pyenv",destination=/sync quangdo/pyenv:3.4.10 
+# docker container run -e "GROUP=$(id -gn)" -e "USER=${USER}" -e "HOME=${HOME}" --mount type=bind,source="${HOME}/.pyenv",destination=/sync quangdo/pyenv:3.4.10 
 
-if ! grep -q 'export PYENV_ROOT="${HOME}/.pyenv"' "${HOME}/.bashrc"; then
-    echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> "${HOME}/.bashrc"
+if ! grep -q 'export PYENV_ROOT="${HOME}/.pyenv"' "${HOME}/.profile"; then
+    echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> "${HOME}/.profile"
 fi
 
-if ! grep -q 'export PATH="${PYENV_ROOT}/bin:${PATH}"' "${HOME}/.bashrc"; then
-    echo 'export PATH="${PYENV_ROOT}/bin:${PATH}"' >> "${HOME}/.bashrc"
+if ! grep -q 'export PATH="${PYENV_ROOT}/bin:${PATH}"' "${HOME}/.profile"; then
+    echo 'export PATH="${PYENV_ROOT}/bin:${PATH}"' >> "${HOME}/.profile"
 fi
 
-if ! grep -q 'eval "$(pyenv init --path)"' "${HOME}/.bashrc"; then
-    echo 'eval "$(pyenv init --path)"' >> "${HOME}/.bashrc"
+if ! grep -q 'eval "$(pyenv init --path)"' "${HOME}/.profile"; then
+    echo 'eval "$(pyenv init --path)"' >> "${HOME}/.profile"
 fi
 
-source "${HOME}/.bashrc"
+source "${HOME}/.profile"
 
 pyenv rehash
+
+exec "${SHELL}"
