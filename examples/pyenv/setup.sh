@@ -21,5 +21,3 @@ fi
 source "${HOME}/.bashrc"
 
 pyenv rehash
-
-
