@@ -37,14 +37,6 @@ RUN add-apt-repository "deb http://security.ubuntu.com/ubuntu bionic-security ma
   libffi-dev \
   liblzma-dev
 
-RUN curl https://pyenv.run | bash \
-  && echo 'export PYENV_ROOT="$HOME/.pyenv"' >> "$HOME/.bashrc" \
-  && echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> "$HOME/.bashrc" \
-  && echo 'eval "$(pyenv init --path)"' >> "$HOME/.bashrc"
-
-# Run like an interactive shell since .bashrc ignores non-interactive commands
-RUN ["/bin/bash", "-ic", "source $HOME/.bashrc && pyenv install 3.4.10 && pyenv global 3.4.10"]
-
 RUN mkdir /data
 
 COPY docker-entrypoint.sh /usr/local/bin/
