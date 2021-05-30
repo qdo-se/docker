@@ -45,7 +45,7 @@ RUN curl https://pyenv.run | bash
 # Run like an interactive shell since .bashrc ignores non-interactive commands
 # RUN ["/bin/bash", "-ic", "source $HOME/.bashrc && pyenv install 3.4.10 && pyenv global 3.4.10"]
 
-RUN mkdir /sync
+RUN mkdir -p /sync
 
 COPY docker-entrypoint.sh /usr/local/bin/
 

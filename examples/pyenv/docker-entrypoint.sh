@@ -4,7 +4,7 @@ addgroup "${GROUP}" &>/dev/null
 
 useradd -m -d "${HOME}" -g "${GROUP}" "${USER}" &>/dev/null
 
-rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
+rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir -p "${HOME}/.pyenv"
 
 cp -r /root/.pyenv/* "${HOME}/.pyenv"
 
