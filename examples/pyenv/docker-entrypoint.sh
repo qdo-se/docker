@@ -9,7 +9,7 @@ rm -rf "${HOME}/.pyenv" 2>/dev/null && mkdir "${HOME}/.pyenv"
 cp -r /root/.pyenv/* "${HOME}/.pyenv"
 
 export PYENV_ROOT="${HOME}/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="${PYENV_ROOT}/bin:$PATH"
 eval "$(pyenv init --path)"
 
 pyenv install 3.4.10
