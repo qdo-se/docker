@@ -132,7 +132,7 @@
          tar cvf /backup/backup.tar /dbdata
    #+END_SRC
 
-* 2021 March 19
+* 2021 March 19 - Docker Cookbook: chapter 2. Image Creation and Sharing
 
 ** Inspect changes
 
