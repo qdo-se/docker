@@ -11,6 +11,8 @@
   - Container is supposed to be short-lived. It can be replaced anytime or run on different environments
   - Don’t try to login to container and make changes inside container
 
+- Use volume to persist data
+
 - Build image once and use the same image for different environments (dev, test, production)
   - Maybe we need a build system for images?
 
@@ -25,10 +27,12 @@
 
 - More best practices: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
 
-- Use volume to persist data
-
 - Use “--restart unless-stopped” for run so that docker can restart correctly in the event that servers reboot
 
 - Run a single process per container
 
 - Using COPY instead of ADD if there is no need to handle tar or remote URL
+
+- Scanning image regularly
+
+- Sign image
